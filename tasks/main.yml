@@ -67,20 +67,20 @@
   template: src=znc-base.conf
             dest={{znc_config_dir}}/base/configs/znc.conf
             mode=0644
+            owner={{znc_system_user}}
   notify:
     - znc-hup-instances
   sudo: yes
-  sudo_user: "{{znc_system_user}}"
 
 - name: "Child ZNC config files"
   template: src=znc-child.conf
             dest={{znc_config_dir}}/{{item.name}}/configs/znc.conf
             mode=0644
+            owner={{znc_system_user}}
   with_items: znc_clients
   notify:
     - znc-hup-instances
   sudo: yes
-  sudo_user: "{{znc_system_user}}"
 
 - name: "Base monit config"
   sudo: yes
